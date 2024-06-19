@@ -1,0 +1,44 @@
+version: '3.8'
+
+services:
+  gitlab:
+    image: gitlab/gitlab-ce:latest
+    ports:
+      - "80:80"  # HTTP port
+      - "443:443" # HTTPS port (replace with your desired port if needed)
+    environment:
+      - EXTERNAL_URL=http://john.gitlab.com  # Replace with your actual domain
+      # Add other GitLab environment variables as needed (refer to GitLab documentation)
+      # root / grep 'Password:' /etc/gitlab/initial_root_password
+      - GITLAB_USE_REDIS=yes  # Enable Redis usage
+    volumes:
+      - gitlab_data:/var/opt/gitlab
+      - gitlab_log:/var/log/gitlab
+    depends_on:
+      - gitlab_postgres
+      - gitlab_redis
+
+  gitlab_postgres:
+    image: postgres:latest
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=gitlab
+      - POSTGRES_PASSWORD=password  # Replace with a strong password
+      - POSTGRES_DB=gitlab
+    volumes:
+      - gitlab_postgres_data:/var/lib/postgresql/data
+
+  gitlab_redis:
+    image: redis:latest
+    volumes:
+      - gitlab_redis_data:/data
+  
+
+
+volumes:
+  gitlab_data: {}
+  gitlab_log: {}
+  gitlab_postgres_data: {}
+  gitlab_redis_data: {}
+
