@@ -6,3 +6,5 @@ externalRedis:
   username: ""
   password: "JhFlBZdJxC"
   port: 6379
+
+## admin/11111111

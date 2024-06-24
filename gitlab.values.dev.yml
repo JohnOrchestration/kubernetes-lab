@@ -1,0 +1,12 @@
+externalUrl: http://john.gitlab.com
+gitlabRootPassword: MTExMTExMTEK # root
+
+postgresql:
+  host: my-postgresql.postgres.svc.cluster.local
+  port: 5432
+  username: postgres
+  password: iaQC75CBk3
+  dbname: gitlab_db
+
+redis:
+  url: redis://:JhFlBZdJxC@my-redis-master.redis.svc.cluster.local:6379
