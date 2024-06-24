@@ -1,0 +1,25 @@
+postgresql:
+  enabled: false
+
+externalDatabase:
+  host: my-postgresql.postgres.svc.cluster.local
+  port: 5432
+  user: postgres
+  password: "iaQC75CBk3"
+  sslmode: disable
+  coreDatabase: "habor_db"
+
+redis:
+  enabled: false
+
+externalRedis:
+  host: my-redis-master.redis.svc.cluster.local
+  port: 6379
+  password: "JhFlBZdJxC"
+
+adminPassword: "uP16djN2iL"
+
+exposureType: ingress
+ingress:
+  core:
+    hostname: john.harbor.com

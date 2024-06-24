@@ -1,0 +1,13 @@
+# This is an optional template for persistent volume claims
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: gitlab-data-pvc
+
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 50Gi  # Adjust storage size as needed
+  storageClassName: standard  # Replace with your storage class name

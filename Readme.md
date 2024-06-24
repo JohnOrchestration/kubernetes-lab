@@ -21,11 +21,24 @@ kubectl create namespace argocd
 helm install -n argocd my-argocd oci://ghcr.io/argoproj/argo-helm/argo-cd --version 7.1.4 --values argocd.values.yml
 ## Note: kubectl get crd
 ## Note: kubectl delete crd applications.argoproj.io
+## admin/11111111
 
-# Install Gitlab Server
+# Install Gitlab Server (Testing)
+helm create gitlab
+helm package charts/gitlab
+
+kubectl create namespace gitlab
+helm install -n gitlab my-gitlab charts/gitlab --values gitlab.values.yml
+helm upgrade -n gitlab my-gitlab charts/gitlab --values gitlab.values.yml
+helm uninstall my-gitlab -n gitlab
+## admin/
+
+# # Install Gitlab Server (PROD)
 kubectl create namespace gitlab
 helm repo add gitlab http://charts.gitlab.io/
 helm install -n gitlab my-gitlab gitlab/gitlab --version 8.0.2 --values gitlab.values.yml
+helm uninstall my-gitlab -n gitlab
+## admin/11111111
 
 # Install Habor
 kubectl create namespace harbor

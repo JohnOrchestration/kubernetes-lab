@@ -1,31 +1,12 @@
+externalUrl: http://john.gitlab.com
+gitlabRootPassword: MTExMTExMTEK
+
 postgresql:
-  install: false
+  host: my-postgresql.postgres.svc.cluster.local
+  port: 5432
+  username: postgres
+  password: iaQC75CBk3
+  dbname: gitlab_db
+
 redis:
-  install: false
-certmanager:
-  install: false
-prometheus:
-  install: false
-
-global:
-  psql:
-    host: my-postgresql.postgres.svc.cluster.local
-    port: 5432
-    username: postgres
-    password:
-      key: postgres-password
-      secret: iaQC75CBk3
-    database: gitlab_db
-
-  redis:
-    auth:
-      enabled: true
-      key: redis-password
-      secret: "JhFlBZdJxC"
-    host: my-redis-master.redis.svc.cluster.local
-    port: 6379
-
-certmanager-issuer:
-  # The email address to register certificates requested from Let's Encrypt.
-  # Required if using Let's Encrypt.
-  email: john.apisits@gmail.com
+  url: redis://:JhFlBZdJxC@my-redis-master.redis.svc.cluster.local:6379

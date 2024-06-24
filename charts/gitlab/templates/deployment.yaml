@@ -1,0 +1,56 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: "{{ .Release.Name }}-gitlab"
+
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: gitlab
+  template:
+    metadata:
+      labels:
+        app: gitlab
+    spec:
+      containers:
+        - name: gitlab
+          image: "gitlab/gitlab-ce:latest" # Use values.yaml for image and version
+          ports:
+            - containerPort: 80
+              name: http
+            - containerPort: 443
+              name: https
+          env:
+          - name: GITLAB_ROOT_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: gitlab-secrets
+                key: GITLAB_ROOT_PASSWORD
+          - name: EXTERNAL_URL
+            value: "{{ .Values.externalUrl }}"
+          - name: GITLAB_USE_REDIS
+            value: "yes"
+          - name: GITLAB_REDIS_URL
+            value: "{{ .Values.redis.url }}"
+          - name: POSTGRES_HOST
+            value: "{{ .Values.postgresql.host }}"
+          - name: POSTGRES_PORT
+            value: "{{ .Values.postgresql.port }}"
+          - name: POSTGRES_USER
+            value: "{{ .Values.postgresql.username }}"
+          - name: POSTGRES_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: gitlab-secrets
+                key: PG_PASSWORD
+          - name: POSTGRES_DB
+            value: "{{ .Values.postgresql.dbname }}"
+          volumeMounts:
+            - name: gitlab-data
+              mountPath: /var/opt/gitlab
+            - name: gitlab-log
+              mountPath: /var/log/gitlab
+      volumes:
+        - name: gitlab-data
+        - name: gitlab-log

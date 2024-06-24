@@ -1,0 +1,10 @@
+apiVersion: v2
+
+name: gitlab
+version: 1.0.0
+appVersion: "latest" # Can be overridden in values.yaml
+description: A Helm chart for deploying GitLab
+
+maintainers:
+  - name: Your Name # Replace with your actual name
+    email: your.email@example.com # Replace with your actual email
