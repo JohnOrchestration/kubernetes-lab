@@ -1,7 +1,10 @@
 postgresql:
   install: false
-
 redis:
+  install: false
+certmanager:
+  install: false
+prometheus:
   install: false
 
 global:
@@ -13,7 +16,7 @@ global:
       key: postgres-password
       secret: iaQC75CBk3
     database: gitlab_db
-  
+
   redis:
     auth:
       enabled: true

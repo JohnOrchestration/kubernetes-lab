@@ -14,6 +14,7 @@ helm repo add bitnami https://charts.bitnami.com/bitnami
 helm install -n redis my-redis bitnami/redis --version 19.5.5
 ## Note: my-redis-master.redis.svc.cluster.local for read/write operations (port 6379)
 ## Note: my-redis-replicas.redis.svc.cluster.local for read-only operations (port 6379)
+## password: JhFlBZdJxC
 
 # Install ArgoCD Server
 kubectl create namespace argocd
@@ -25,4 +26,18 @@ helm install -n argocd my-argocd oci://ghcr.io/argoproj/argo-helm/argo-cd --vers
 kubectl create namespace gitlab
 helm repo add gitlab http://charts.gitlab.io/
 helm install -n gitlab my-gitlab gitlab/gitlab --version 8.0.2 --values gitlab.values.yml
+
+# Install Habor
+kubectl create namespace harbor
+helm repo add bitnami https://charts.bitnami.com/bitnami
+helm install -n harbor my-harbor bitnami/harbor --version 21.4.6 --values habor.values.yml
+helm upgrade -n harbor my-harbor bitnami/harbor --version 21.4.6 --values habor.values.yml
+## admin/uP16djN2iL
+
+```
+
+```shell
+127.0.0.1 john.gitlab.com
+127.0.0.1 john.harbor.com
+127.0.0.1 john.argo.com
 ```
