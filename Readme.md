@@ -37,8 +37,6 @@ helm package charts/gitlab
 
 kubectl create namespace gitlab
 helm install -n gitlab my-gitlab charts/gitlab --values gitlab.values.dev.yml
-helm uninstall my-gitlab -n gitlab
-
 helm install -n gitlab my-gitlab-runner gitlab/gitlab-runner --version 0.66.0 --values gitlab-runner.values.yml
 
 
