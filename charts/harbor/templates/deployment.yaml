@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: "{{ .Release.Name }}-registry"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: harbor
+  template:
+    metadata:
+      labels:
+        app: harbor
+    spec:
+      containers:
+        - name: harbor
+          image: "docker.io/bitnami/harbor-registry:latest"
+          ports:
+            - containerPort: 5000
+              name: http
+          env:
+          - name: REGISTRY_HTTP_SECRET
+            valueFrom:
+              secretKeyRef:
+                name: "{{ .Release.Name }}-secrets"
+                key: REGISTRY_HTTP_SECRET
+          - name: DATABASE_TYPE
+            value: postgresql
+          - name: POSTGRESQL_HOST
+            value: "{{ .Values.postgresql.host }}"
+          - name: POSTGRESQL_PORT
+            value: "{{ .Values.postgresql.port }}"
+          - name: POSTGRESQL_DATABASE
+            value: "{{ .Values.postgresql.dbname }}"
+          - name: POSTGRESQL_USERNAME
+            value: "{{ .Values.postgresql.username }}"
+          - name: POSTGRESQL_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: "{{ .Release.Name }}-secrets"
+                key: POSTGRESQL_PASSWORD
+          volumeMounts:
+            - name: harbor-data
+              mountPath: /storage
+            - name: harbor-config
+              mountPath: /etc/registry/:ro
+      volumes:
+        - name: harbor-data
+          # persistentVolumeClaim:
+          #   claimName: "{{ .Release.Name }}-data-pvc"
+        - name: harbor-config
+          # persistentVolumeClaim:
+          #   claimName: "{{ .Release.Name }}-data-pvc"

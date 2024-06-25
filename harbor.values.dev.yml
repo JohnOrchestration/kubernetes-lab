@@ -1,0 +1,8 @@
+registryHttpSecret: MTExMTExMTEK
+
+postgresql:
+  host: my-postgresql.postgres.svc.cluster.local
+  port: 5432
+  username: postgres
+  password: iaQC75CBk3
+  dbname: habor_registry

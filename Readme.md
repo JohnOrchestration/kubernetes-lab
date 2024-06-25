@@ -34,7 +34,6 @@ helm uninstall my-argocd -n argocd
 
 # Install Gitlab Server (Testing)
 helm package charts/gitlab
-
 kubectl create namespace gitlab
 helm install -n gitlab my-gitlab charts/gitlab --values gitlab.values.dev.yml
 helm install -n gitlab my-gitlab-runner gitlab/gitlab-runner --version 0.66.0 --values gitlab-runner.values.yml
@@ -47,7 +46,14 @@ helm repo add gitlab http://charts.gitlab.io/
 helm install -n gitlab my-gitlab gitlab/gitlab --version 8.0.2 --values gitlab.values.yml
 helm uninstall my-gitlab -n gitlab
 
-# Install Habor
+# Install Habor (Testing)
+helm package charts/harbor
+kubectl create namespace harbor
+helm install -n harbor my-harbor charts/harbor --values harbor.values.dev.yml
+helm uninstall my-harbor -n harbor
+# Fix port: http://localhost:8002
+
+# Install Habor (PROD)
 kubectl create namespace harbor
 helm repo add bitnami https://charts.bitnami.com/bitnami
 helm install -n harbor my-harbor bitnami/harbor --version 21.4.6 --values habor.values.yml

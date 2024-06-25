@@ -1,0 +1,10 @@
+apiVersion: v2
+
+name: harbor
+version: 1.0.0
+appVersion: "latest" # Can be overridden in values.yaml
+description: A Helm chart for deploying Harbor
+
+maintainers:
+  - name: John S. # Replace with your actual name
+    email: john.apisits@gmail.com # Replace with your actual email
