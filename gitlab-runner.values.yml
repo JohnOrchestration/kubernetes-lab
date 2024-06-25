@@ -2,4 +2,4 @@
 replicas: 2
 
 gitlabUrl: http://my-gitlab-service.gitlab.svc.cluster.local
-runnerToken: "glrt-zV2w8ZBYe9VnyJQ_ibxz"
+runnerToken: "glrt-FpAp6Eu1HKyDV2sANKd9"
